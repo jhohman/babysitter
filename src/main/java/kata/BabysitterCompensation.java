@@ -15,6 +15,9 @@ public class BabysitterCompensation {
     }
 
     private int getChildcareHours(int arrivalHour, int departureHour, int bedtimeHour) {
+        if (arrivedAfterBedtime(arrivalHour, bedtimeHour)) {
+            return 0;
+        }
         int departureHourAdjusted = departureHour < 5 ? departureHour + 12 : departureHour;
         return Math.min(bedtimeHour, departureHourAdjusted) - arrivalHour;
     }

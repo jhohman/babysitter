@@ -35,7 +35,7 @@ public class BabysitterKataStoryTest {
     public void calculateCompensation_ArriveAfterBedtime() {
         BabysitterCompensation babysitterCompensation = new BabysitterCompensation();
 
-        int result = babysitterCompensation.calculate(9, 10, 9);
+        int result = babysitterCompensation.calculate(10, 11, 9);
 
         assertThat(result).isEqualTo(6);
     }
