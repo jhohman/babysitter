@@ -11,7 +11,13 @@ public class Timesheet {
         this.bedtimeHour = bedtimeHour;
     }
 
-    public int getTotalHoursForChildcare() {
+    public int sum(int hourlyChildcareRate, int hourlyHouseSittingRate, int hourlyPostMidnightRate) {
+        return (getTotalHoursForChildcare() * hourlyChildcareRate)
+                + (getTotalHoursForHouseSitting() * hourlyHouseSittingRate)
+                + (getTotalHoursForPostMidnight() * hourlyPostMidnightRate);
+    }
+
+    private int getTotalHoursForChildcare() {
         int totalHoursForChildcare = 0;
         if (arrivedBeforeBedtime()) {
             totalHoursForChildcare = Math.min(bedtimeHour, adjustHour(departureHour)) - arrivalHour;
@@ -19,7 +25,7 @@ public class Timesheet {
         return totalHoursForChildcare;
     }
     
-    public int getTotalHoursForHouseSitting() {
+    private int getTotalHoursForHouseSitting() {
         int totalHoursForHouseSitting = 0;
         if(hasHouseSittingHours()) {
             totalHoursForHouseSitting = Math.min(adjustHour(departureHour), 12) - Math.max(arrivalHour, bedtimeHour);
@@ -27,7 +33,7 @@ public class Timesheet {
         return totalHoursForHouseSitting;
     }
     
-    public int getTotalHoursForPostMidnight() {
+    private int getTotalHoursForPostMidnight() {
         int totalHoursPostMidnight = 0;
         if (departAfterMidnight()) {
             totalHoursPostMidnight = adjustHour(departureHour) - Math.max(adjustHour(arrivalHour), 12);
