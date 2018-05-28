@@ -20,39 +20,43 @@ public class Timesheet {
     }
     
     public int getTotalHoursForHouseSitting() {
-        if(arrivedAfterMidnight()) {
-            return 0;
+        int totalHoursForHouseSitting = 0;
+        if(hasHouseSittingHours()) {
+            totalHoursForHouseSitting = Math.min(adjustHour(departureHour), 12) - Math.max(arrivalHour, bedtimeHour);
         }
-        if (departedBeforeBedtime()) {
-            return 0;
-        }
-        if (arrivedAfterBedtime()) {
-            return departureHour - arrivalHour;
-        }
-        return 12 - bedtimeHour;
+        return totalHoursForHouseSitting;
     }
     
     public int getTotalHoursForPostMidnight() {
-        if (arrivedAfterMidnight()) {
-            return departureHour - (arrivalHour == 12 ? 0 : arrivalHour);
+        int totalHoursPostMidnight = 0;
+        if (departAfterMidnight()) {
+            totalHoursPostMidnight = adjustHour(departureHour) - Math.max(adjustHour(arrivalHour), 12);
         }
-        return departureHour < 5 ? departureHour : 0;
-    }
-
-    private boolean arrivedAfterMidnight() {
-        return (adjustHour(arrivalHour) >= 12);
-    }
-
-    private boolean departedBeforeBedtime() {
-        return adjustHour(departureHour) <= bedtimeHour;
-    }
-
-    private boolean arrivedAfterBedtime() {
-        return adjustHour(arrivalHour) >= bedtimeHour ;
+        return totalHoursPostMidnight;
     }
     
     private boolean arrivedBeforeBedtime() {
-        return adjustHour(arrivalHour) <= bedtimeHour;
+        return adjustHour(arrivalHour) < bedtimeHour;
+    }
+
+    private boolean hasHouseSittingHours() {
+        return arrivedBeforeMidnight() && (arrivedAterBedtime() || departedAfterBedtime());
+    }
+
+    private boolean arrivedBeforeMidnight() {
+        return adjustHour(arrivalHour) < 12;
+    }
+
+    private boolean arrivedAterBedtime() {
+        return arrivalHour >= bedtimeHour;
+    }
+
+    private boolean departedAfterBedtime() {
+        return adjustHour(departureHour) > bedtimeHour;
+    }
+
+    private boolean departAfterMidnight() {
+        return (adjustHour(departureHour) > 12);
     }
 
     private int adjustHour(int hour) {
