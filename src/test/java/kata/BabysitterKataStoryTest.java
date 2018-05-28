@@ -28,6 +28,13 @@ public class BabysitterKataStoryTest {
     }
     
     @Test
+    public void departAtBedtime() {
+        int result = babysitterCompensation.calculate(8, 9, 9);
+
+        assertThat(result).isEqualTo(10);
+    }
+    
+    @Test
     public void arriveAfterBedtime() {
         int result = babysitterCompensation.calculate(10, 11, 9);
 
