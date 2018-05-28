@@ -7,18 +7,21 @@ public class BabysitterCompensation {
     private final int hourlyPostMidnightRate = 8;
     
     public int calculate(int arrivalHour, int departureHour, int bedtimeHour) {
-        int childcareHours = getChildcareHours(arrivalHour, bedtimeHour);
-        int houseSittingHours = getHouseSittingHours(bedtimeHour);
+        int childcareHours = getChildcareHours(arrivalHour, departureHour, bedtimeHour);
+        int houseSittingHours = getHouseSittingHours(bedtimeHour, departureHour);
         int postMidnightHours = getPostMidnightHours(departureHour);
         
         return sum(childcareHours, houseSittingHours, postMidnightHours);
     }
 
-    private int getChildcareHours(int arrivalHour, int bedtimeHour) {
-        return bedtimeHour - arrivalHour;
+    private int getChildcareHours(int arrivalHour, int departureHour, int bedtimeHour) {
+        return Math.min(bedtimeHour, departureHour) - arrivalHour;
     }
 
-    private int getHouseSittingHours(int bedtimeHour) {
+    private int getHouseSittingHours(int bedtimeHour, int departureHour) {
+        if (departureHour < bedtimeHour) {
+            return 0;
+        }
         return 12 - bedtimeHour;
     }
 
