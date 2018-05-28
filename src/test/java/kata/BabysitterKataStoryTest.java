@@ -7,35 +7,35 @@ public class BabysitterKataStoryTest {
     public BabysitterCompensation babysitterCompensation = new BabysitterCompensation();
     
     @Test
-    public void calculateCompensatation_For_MinArrival_MaxDeparture_MaxBedtime() {
+    public void minArrival_MaxDeparture_MaxBedtime() {
         int result = babysitterCompensation.calculate(5,4,12);
         
         assertThat(result).isEqualTo(102);
     }
     
     @Test
-    public void calculateCompensation_BedtimeBeforeMidnight() {
+    public void bedtimeBeforeMidnight() {
         int result = babysitterCompensation.calculate(6, 12, 9);
         
         assertThat(result).isEqualTo(48);
     }
     
     @Test
-    public void calculateCompensation_DepartBeforeBedtime() {
+    public void departBeforeBedtime() {
         int result = babysitterCompensation.calculate(8, 9, 10);
 
         assertThat(result).isEqualTo(10);
     }
     
     @Test
-    public void calculateCompensation_ArriveAfterBedtime() {
+    public void arriveAfterBedtime() {
         int result = babysitterCompensation.calculate(10, 11, 9);
 
         assertThat(result).isEqualTo(6);
     }
     
     @Test
-    public void calculateCompensation_ArriveAtBedtime() {
+    public void arriveAtBedtime() {
         int result = babysitterCompensation.calculate(9, 11, 9);
 
         assertThat(result).isEqualTo(12);
