@@ -22,4 +22,12 @@ public class BabysitterKataStoryTest {
         
         assertThat(result).isEqualTo(48);
     }
+    
+    @Test
+    public void calculateCompensation_DepartBeforeBedtime() {
+        BabysitterCompensation babysitterCompensation = new BabysitterCompensation();
+        int result = babysitterCompensation.calculate(8, 9, 10);
+
+        assertThat(result).isEqualTo(10);
+    }
 }
