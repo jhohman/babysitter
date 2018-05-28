@@ -12,10 +12,11 @@ public class Timesheet {
     }
 
     public int getTotalHoursForChildcare() {
-        if (arrivedAfterBedtime()) {
-            return 0;
+        int totalHoursForChildcare = 0;
+        if (arrivedBeforeBedtime()) {
+            totalHoursForChildcare = Math.min(bedtimeHour, adjustHour(departureHour)) - arrivalHour;
         }
-        return Math.min(bedtimeHour, adjustHour(departureHour)) - arrivalHour;
+        return totalHoursForChildcare;
     }
     
     public int getTotalHoursForHouseSitting() {
@@ -48,6 +49,10 @@ public class Timesheet {
 
     private boolean arrivedAfterBedtime() {
         return adjustHour(arrivalHour) >= bedtimeHour ;
+    }
+    
+    private boolean arrivedBeforeBedtime() {
+        return adjustHour(arrivalHour) <= bedtimeHour;
     }
 
     private int adjustHour(int hour) {
