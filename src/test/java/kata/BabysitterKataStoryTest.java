@@ -7,9 +7,9 @@ public class BabysitterKataStoryTest {
     
     @Test
     public void calculateCompensatation_For_MinArrival_MaxDeparture_MaxBedtime() {
-        BabysitterCompensatation babysitterCompensatation = new BabysitterCompensatation();
+        BabysitterCompensation babysitterCompensation = new BabysitterCompensation();
 
-        int result = babysitterCompensatation.calculate(5,4,12);
+        int result = babysitterCompensation.calculate(5,4,12);
         
         assertThat(result).isEqualTo(102);
     }
