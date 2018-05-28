@@ -20,7 +20,7 @@ public class Timesheet {
     }
     
     public int getTotalHoursForHouseSitting() {
-        if(arrivedAfterMidnight(arrivalHour)) {
+        if(arrivedAfterMidnight()) {
             return 0;
         }
         if (departedBeforeBedtime()) {
@@ -33,13 +33,13 @@ public class Timesheet {
     }
     
     public int getTotalHoursForPostMidnight() {
-        if (arrivedAfterMidnight(arrivalHour)) {
+        if (arrivedAfterMidnight()) {
             return departureHour - (arrivalHour == 12 ? 0 : arrivalHour);
         }
         return departureHour < 5 ? departureHour : 0;
     }
 
-    private boolean arrivedAfterMidnight(int arrivalHour) {
+    private boolean arrivedAfterMidnight() {
         return (adjustHour(arrivalHour) >= 12);
     }
 
