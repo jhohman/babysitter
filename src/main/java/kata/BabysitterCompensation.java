@@ -18,19 +18,18 @@ public class BabysitterCompensation {
         if (arrivedAfterBedtime(arrivalHour, bedtimeHour)) {
             return 0;
         }
-        int departureHourAdjusted = departureHour < 5 ? departureHour + 12 : departureHour;
-        return Math.min(bedtimeHour, departureHourAdjusted) - arrivalHour;
+        return Math.min(bedtimeHour, adjustHour(departureHour)) - arrivalHour;
     }
 
     private int getHouseSittingHours(int arrivalHour, int departureHour, int bedtimeHour) {
         if(arrivedAfterMidnight(arrivalHour)) {
             return 0;
         }
-        if (arrivedAfterBedtime(arrivalHour, bedtimeHour)) {
-            return departureHour - arrivalHour;
-        }
         if (departedBeforeBedtime(departureHour, bedtimeHour)) {
             return 0;
+        }
+        if (arrivedAfterBedtime(arrivalHour, bedtimeHour)) {
+            return departureHour - arrivalHour;
         }
         return 12 - bedtimeHour;
     }
@@ -56,12 +55,14 @@ public class BabysitterCompensation {
     }
 
     private boolean departedBeforeBedtime(int departureHour, int bedtimeHour) {
-        int departureHourAdjustd = departureHour < 5 ? departureHour + 12 : departureHour;
-        return departureHourAdjustd <= bedtimeHour;
+        return adjustHour(departureHour) <= bedtimeHour;
     }
 
     private boolean arrivedAfterBedtime(int arrivalHour, int bedtimeHour) {
-        int arrivalHourAdjusted = arrivalHour < 5 ? arrivalHour + 12 : arrivalHour;
-        return arrivalHourAdjusted >= bedtimeHour ;
+        return adjustHour(arrivalHour) >= bedtimeHour ;
+    }
+
+    private int adjustHour(int hour) {
+        return hour < 5 ? hour + 12 : hour;
     }
 }
