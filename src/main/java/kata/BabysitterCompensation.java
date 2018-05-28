@@ -56,7 +56,8 @@ public class BabysitterCompensation {
     }
 
     private boolean departedBeforeBedtime(int departureHour, int bedtimeHour) {
-        return departureHour <= bedtimeHour;
+        int departureHourAdjustd = departureHour < 5 ? departureHour + 12 : departureHour;
+        return departureHourAdjustd <= bedtimeHour;
     }
 
     private boolean arrivedAfterBedtime(int arrivalHour, int bedtimeHour) {

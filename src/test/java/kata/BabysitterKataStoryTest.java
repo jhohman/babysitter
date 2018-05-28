@@ -14,6 +14,13 @@ public class BabysitterKataStoryTest {
     }
     
     @Test
+    public void minArrival_MaxDepature_NormalBedtime() {
+        int result = babysitterCompensation.calculate(5, 4, 9);
+
+        assertThat(result).isEqualTo(90);
+    }
+    
+    @Test
     public void bedtimeBeforeMidnight() {
         int result = babysitterCompensation.calculate(6, 12, 9);
         
