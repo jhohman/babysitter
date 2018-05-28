@@ -8,7 +8,7 @@ public class BabysitterCompensation {
     
     public int calculate(int arrivalHour, int departureHour, int bedtimeHour) {
         int childcareHours = getChildcareHours(arrivalHour, departureHour, bedtimeHour);
-        int houseSittingHours = getHouseSittingHours(bedtimeHour, departureHour);
+        int houseSittingHours = getHouseSittingHours(arrivalHour, departureHour, bedtimeHour);
         int postMidnightHours = getPostMidnightHours(departureHour);
         
         return sum(childcareHours, houseSittingHours, postMidnightHours);
@@ -19,8 +19,11 @@ public class BabysitterCompensation {
         return Math.min(bedtimeHour, departureHourAdjusted) - arrivalHour;
     }
 
-    private int getHouseSittingHours(int bedtimeHour, int departureHour) {
-        if (departureHour < bedtimeHour) {
+    private int getHouseSittingHours(int arrivalHour, int departureHour, int bedtimeHour) {
+        if (arrivedAfterBedtime(arrivalHour, bedtimeHour)) {
+            return departureHour - arrivalHour;
+        }
+        if (departedBeforeBedtime(departureHour, bedtimeHour)) {
             return 0;
         }
         return 12 - bedtimeHour;
@@ -34,5 +37,13 @@ public class BabysitterCompensation {
         return (childcareHours * hourlyChildcareRate) 
                 + (houseSittingHours * hourlyHouseSittingRate) 
                 + (postMidnightHours * hourlyPostMidnightRate);
+    }
+
+    private boolean departedBeforeBedtime(int departureHour, int bedtimeHour) {
+        return departureHour < bedtimeHour;
+    }
+
+    private boolean arrivedAfterBedtime(int arrivalHour, int bedtimeHour) {
+        return arrivalHour >= bedtimeHour ;
     }
 }
