@@ -39,10 +39,7 @@ public class Timesheet {
     }
 
     private boolean arrivedAfterMidnight(int arrivalHour) {
-        if (arrivalHour == 12 || arrivalHour < 5) {
-            return true;
-        }
-        return false;
+        return (adjustHour(arrivalHour) >= 12);
     }
 
     private boolean departedBeforeBedtime() {
