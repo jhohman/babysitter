@@ -47,5 +47,19 @@ public class BabysitterKataStoryTest {
 
         assertThat(result).isEqualTo(12);
     }
+    
+    @Test
+    public void arriveAtMidnight() {
+        int result = babysitterCompensation.calculate(12, 4, 9);
+
+        assertThat(result).isEqualTo(32);
+    }
+
+    @Test
+    public void arriveAfterMidnight() {
+        int result = babysitterCompensation.calculate(1, 4, 9);
+
+        assertThat(result).isEqualTo(24);
+    }
 
 }

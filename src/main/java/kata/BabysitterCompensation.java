@@ -9,7 +9,7 @@ public class BabysitterCompensation {
     public int calculate(int arrivalHour, int departureHour, int bedtimeHour) {
         int childcareHours = getChildcareHours(arrivalHour, departureHour, bedtimeHour);
         int houseSittingHours = getHouseSittingHours(arrivalHour, departureHour, bedtimeHour);
-        int postMidnightHours = getPostMidnightHours(departureHour);
+        int postMidnightHours = getPostMidnightHours(arrivalHour, departureHour);
         
         return sum(childcareHours, houseSittingHours, postMidnightHours);
     }
@@ -23,6 +23,9 @@ public class BabysitterCompensation {
     }
 
     private int getHouseSittingHours(int arrivalHour, int departureHour, int bedtimeHour) {
+        if(arrivedAfterMidnight(arrivalHour)) {
+            return 0;
+        }
         if (arrivedAfterBedtime(arrivalHour, bedtimeHour)) {
             return departureHour - arrivalHour;
         }
@@ -32,7 +35,10 @@ public class BabysitterCompensation {
         return 12 - bedtimeHour;
     }
 
-    private int getPostMidnightHours(int departureHour) {
+    private int getPostMidnightHours(int arrivalHour, int departureHour) {
+        if (arrivedAfterMidnight(arrivalHour)) {
+            return departureHour - (arrivalHour == 12 ? 0 : arrivalHour);
+        }
         return departureHour < 5 ? departureHour : 0;
     }
 
@@ -42,11 +48,19 @@ public class BabysitterCompensation {
                 + (postMidnightHours * hourlyPostMidnightRate);
     }
 
+    private boolean arrivedAfterMidnight(int arrivalHour) {
+        if (arrivalHour == 12 || arrivalHour < 5) {
+            return true;
+        }
+        return false;
+    }
+
     private boolean departedBeforeBedtime(int departureHour, int bedtimeHour) {
         return departureHour <= bedtimeHour;
     }
 
     private boolean arrivedAfterBedtime(int arrivalHour, int bedtimeHour) {
-        return arrivalHour >= bedtimeHour ;
+        int arrivalHourAdjusted = arrivalHour < 5 ? arrivalHour + 12 : arrivalHour;
+        return arrivalHourAdjusted >= bedtimeHour ;
     }
 }
