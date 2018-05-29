@@ -1,6 +1,6 @@
 package kata.model;
 
-import kata.Timesheet;
+import static kata.Timesheet.adjustHour;
 
 public class PostMidnight {
     private final int arrivalHour;
@@ -14,12 +14,12 @@ public class PostMidnight {
     public int getTotalHours() {
         int totalHoursPostMidnight = 0;
         if (departAfterMidnight()) {
-            totalHoursPostMidnight = Timesheet.adjustHour(departureHour) - Math.max(Timesheet.adjustHour(arrivalHour), 12);
+            totalHoursPostMidnight = adjustHour(departureHour) - Math.max(adjustHour(arrivalHour), 12);
         }
         return totalHoursPostMidnight;
     }
 
     private boolean departAfterMidnight() {
-        return (Timesheet.adjustHour(departureHour) > 12);
+        return (adjustHour(departureHour) > 12);
     }
 }

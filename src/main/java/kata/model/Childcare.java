@@ -1,6 +1,6 @@
 package kata.model;
 
-import kata.Timesheet;
+import static kata.Timesheet.adjustHour;
 
 public class Childcare {
     private final int arrivalHour;
@@ -15,12 +15,12 @@ public class Childcare {
     public int getTotalHours() {
         int totalHoursForChildcare = 0;
         if (arrivedBeforeBedtime()) {
-            totalHoursForChildcare = Math.min(bedtimeHour, Timesheet.adjustHour(departureHour)) - arrivalHour;
+            totalHoursForChildcare = Math.min(bedtimeHour, adjustHour(departureHour)) - arrivalHour;
         }
         return totalHoursForChildcare;
     }
 
     private boolean arrivedBeforeBedtime() {
-        return Timesheet.adjustHour(arrivalHour) < bedtimeHour;
+        return adjustHour(arrivalHour) < bedtimeHour;
     }
 }

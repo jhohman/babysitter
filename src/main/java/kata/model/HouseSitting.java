@@ -1,6 +1,6 @@
 package kata.model;
 
-import kata.Timesheet;
+import static kata.Timesheet.adjustHour;
 
 public class HouseSitting {
     private final int arrivalHour;
@@ -16,7 +16,7 @@ public class HouseSitting {
     public int getTotalHours() {
         int totalHoursForHouseSitting = 0;
         if(hasHouseSittingHours()) {
-            totalHoursForHouseSitting = Math.min(Timesheet.adjustHour(departureHour), 12) - Math.max(arrivalHour, bedtimeHour);
+            totalHoursForHouseSitting = Math.min(adjustHour(departureHour), 12) - Math.max(arrivalHour, bedtimeHour);
         }
         return totalHoursForHouseSitting;
     }
@@ -26,7 +26,7 @@ public class HouseSitting {
     }
 
     private boolean arrivedBeforeMidnight() {
-        return Timesheet.adjustHour(arrivalHour) < 12;
+        return adjustHour(arrivalHour) < 12;
     }
 
     private boolean arrivedAfterBedtime() {
@@ -34,6 +34,6 @@ public class HouseSitting {
     }
 
     private boolean departedAfterBedtime() {
-        return Timesheet.adjustHour(departureHour) > bedtimeHour;
+        return adjustHour(departureHour) > bedtimeHour;
     }
 }
