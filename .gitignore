@@ -6,6 +6,7 @@
 
 # Build
 .gradle
+build
 
 # Log file
 *.log
