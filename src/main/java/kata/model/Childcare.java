@@ -14,13 +14,13 @@ public class Childcare {
     }
     public int getTotalHours() {
         int totalHoursForChildcare = 0;
-        if (arrivedBeforeBedtime(arrivalHour, bedtimeHour)) {
+        if (arrivedBeforeBedtime()) {
             totalHoursForChildcare = Math.min(bedtimeHour, Timesheet.adjustHour(departureHour)) - arrivalHour;
         }
         return totalHoursForChildcare;
     }
 
-    private boolean arrivedBeforeBedtime(int arrivalHour, int bedtimeHour) {
+    private boolean arrivedBeforeBedtime() {
         return Timesheet.adjustHour(arrivalHour) < bedtimeHour;
     }
 }
