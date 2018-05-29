@@ -19,5 +19,10 @@ public class BabysitterKataStoryTest {
 
         assertThat(result).isEqualTo(90);
     }
+
+    @Test(expected = BabysitterValidationException.class)
+    public void validatesInput() {
+        babysitterCompensation.calculate(4, 9, 8);
+    }
 }
     
